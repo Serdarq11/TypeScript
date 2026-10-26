@@ -45,4 +45,20 @@ const coords: (Point | Loc)[] = [];
 coords.push({lat: 321.213, long: 23.334})
 coords.push({x: 213, y: 123})
 
+// literal types 
+
+let zero: 0 = 0;
+let mood: "happy" | "sad" = "happy"
+mood = "sad"
+
+type dayOfWeek = 
+    | "Monday"
+    | "Tuesday"
+    | "Wednesday"
+    | "Thursday"
+    | "Friday"
+    | "Saturday"
+    | "Sunday"
+
+let today: dayOfWeek = "Wednesday"
 
