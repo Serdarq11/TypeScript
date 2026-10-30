@@ -1,0 +1,7 @@
+tsc -- init                 -> making a new json file
+tsc -w                      -> watch mode
+start index.html            -> starting html file in the browser
+npm init -y                 -> making a package.json file 
+npm install lite-server     -> installing lite server, lite-server automaticaly is added to the package.json file.
+"start": "lite-server"      -> we write this in the package.json file to see changes automatically without refreshing the browser 
+
