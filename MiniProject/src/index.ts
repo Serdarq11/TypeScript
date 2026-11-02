@@ -10,13 +10,25 @@ interface Todo {
     completed: boolean;
 }
 
-const todos: Todo[] = [];
+
 
 const btn = document.getElementById("btn")! as HTMLButtonElement;    // ! means stop worrying this is guaranteed not to be null.
 const input = document.getElementById("todoinput")! as HTMLInputElement;    // type assertion is used by as keyword.
 const form = document.querySelector("form")!;
 const list = document.querySelector("#todolist")!;
+const todos: Todo[] = readTodos();
+todos.forEach(createTodo);
 // console.log(btn)
+
+function readTodos(): Todo[] {
+    const todosJSON = localStorage.getItem("todos");
+    if(todosJSON === null) return [];
+    return JSON.parse(todosJSON);
+};
+
+function saveTodos(){
+    localStorage.setItem("todos", JSON.stringify(todos));
+}
 
 form.addEventListener("submit", function(e: SubmitEvent) {
     e.preventDefault();
@@ -26,7 +38,7 @@ form.addEventListener("submit", function(e: SubmitEvent) {
     };
     createTodo(newTodo);
     todos.push(newTodo);
-    localStorage.setItem("todos", JSON.stringify(todos));
+    saveTodos();
     // console.log("submitted!!")
     
     input.value = "";
@@ -38,6 +50,12 @@ function createTodo(todo: Todo) {
     const newLI = document.createElement("li");
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";     // same thing with     <input type="checkbox" checked> in the html file
+    checkbox.checked = todo.completed;
+    checkbox.addEventListener("change", function(){
+        todo.completed = checkbox.checked;
+        saveTodos();
+    });     
+    
     newLI.append(todo.text);
     newLI.append(checkbox);
     list.append(newLI);
