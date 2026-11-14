@@ -1,22 +1,12 @@
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
+"use strict";
 // const nums: number[] = [];
 // const nums: Array<number> = []; // This is the same as the above line. Array<number> is a generic type that represents an array of numbers.
-var colors = [];
+const colors = [];
 // Providing a type to querySelector:
-var inputEl = document.querySelector("#username"); // The ! at the end of the querySelector means that we are telling TypeScript that we are sure that this element exists in the DOM. If we didn't use the !, TypeScript would give us an error because it thinks that this element might not exist in the DOM and therefore might be null.
+const inputEl = document.querySelector("#username"); // The ! at the end of the querySelector means that we are telling TypeScript that we are sure that this element exists in the DOM. If we didn't use the !, TypeScript would give us an error because it thinks that this element might not exist in the DOM and therefore might be null.
 console.dir(inputEl);
 inputEl.value = "Hacked!";
-var btn = document.querySelector(".btn"); // .btn is a class selector. 
+const btn = document.querySelector(".btn"); // .btn is a class selector. 
 // Without Generics...Lots of Repetition!
 function numberIdentity(item) {
     return item;
@@ -37,17 +27,17 @@ function identity(item) {
 identity(7);
 identity("hello");
 function getRandomElement(list) {
-    var randIdx = Math.floor(Math.random() * list.length);
+    const randIdx = Math.floor(Math.random() * list.length);
     return list[randIdx];
 }
 console.log(getRandomElement(["a", "b", "c"]));
 console.log(getRandomElement([5, 6, 21, 354, 567, 234, 654]));
-console.log(getRandomElement([1, 2, 3, 4]));
+console.log(getRandomElement([1, 2, 3, 4])); // TypeScript can infer the type of the array elements, so we don't need to specify the type parameter explicitly.
 // Generics With Constraints:
 function merge(object1, object2) {
-    return __assign(__assign({}, object1), object2);
+    return Object.assign(Object.assign({}, object1), object2);
 }
-var comboObj = merge({ name: "colt" }, { pets: ["blue", "elton"] });
+const comboObj = merge({ name: "colt" }, { pets: ["blue", "elton"] });
 console.log(merge({ name: "Colt" }, { num: 9 }));
 merge({ name: "colt" }, { pets: ["blue", "elton"] });
 function printDoubleLength(thing) {
@@ -57,20 +47,19 @@ function printDoubleLength(thing) {
 //   return thing.length * 2;
 // }
 printDoubleLength("asdasd");
-// printDoubleLength(234); //Not allowed!
+// printDoubleLength(234); //Not allowed! because number does not have a length property. This is where the constraint on the generic type T comes into play. It ensures that T must have a length property, so we can't pass in a number.
 function makeEmptyArray() {
     return [];
 }
-var nums = makeEmptyArray();
-var bools = makeEmptyArray();
-var Playlist = /** @class */ (function () {
-    function Playlist() {
+const nums = makeEmptyArray(); // T is number here
+const bools = makeEmptyArray(); // T is boolean here
+class Playlist {
+    constructor() {
         this.queue = [];
     }
-    Playlist.prototype.add = function (el) {
+    add(el) {
         this.queue.push(el);
-    };
-    return Playlist;
-}());
-var songs = new Playlist();
-var videos = new Playlist();
+    }
+}
+const songs = new Playlist();
+const videos = new Playlist();
